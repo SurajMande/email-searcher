@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { FiSearch, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { useSearch } from '../context/SearchContext';
 
 const Header = ({ toggleSidebar }) => {
   const { user, logout } = useAuth();
+  const { handleSearch } = useSearch();
+  const [query, setQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const onInputChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    handleSearch(value); // 👈 real-time search
+  };
 
   return (
     <header className="bg-gradient-to-r from-indigo-700 to-indigo-900 text-white px-4 py-3 shadow-xl flex items-center justify-between gap-4 transition-all duration-300">
@@ -22,6 +31,8 @@ const Header = ({ toggleSidebar }) => {
         <input
           type="text"
           placeholder="Search files, emails, or links..."
+          value={query}
+          onChange={onInputChange}
           className={`w-full pl-10 pr-4 py-2 bg-indigo-800/30 border ${isSearchFocused ? 'border-indigo-400' : 'border-indigo-600'} rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-400 placeholder-indigo-300 text-white transition-all duration-300`}
           onFocus={() => setIsSearchFocused(true)}
           onBlur={() => setIsSearchFocused(false)}

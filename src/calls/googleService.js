@@ -1,4 +1,3 @@
-// src/services/googleService.js
 
 /**
  * Searches Gmail for a query string and returns message metadata.

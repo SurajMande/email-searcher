@@ -2,11 +2,14 @@
 import React from 'react';
 import AppRoutes from './routes/AppRoutes';
 import { AuthProvider } from './context/AuthContext';
+import { SearchProvider } from './context/SearchContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <AppRoutes />
+      <SearchProvider>
+        <AppRoutes />
+      </SearchProvider>
     </AuthProvider>
   );
 };
